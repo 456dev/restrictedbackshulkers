@@ -1,0 +1,6 @@
+name: "${name}"
+version: "${version}"
+main: dev.the456gamer.restrictedbackshulkers.SpigotFallback
+description: "FALLBACK - ${description}"
+authors:
+  - The456gamer

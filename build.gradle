@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id("io.papermc.paperweight.userdev") version "1.5.5"
+    id("xyz.jpenilla.run-paper") version "2.1.0"
+    // Adds runServer and runMojangMappedServer tasks for testing
+}
+
+group = 'dev.the456gamer'
+version = '1.0-SNAPSHOT'
+description = "Only allow certain Shulker boxes to be used as backpacks."
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+    paperweight.paperDevBundle("1.20-R0.1-SNAPSHOT")
+    implementation("cloud.commandframework:cloud-paper:1.8.3")
+    implementation("cloud.commandframework:cloud-annotations:1.8.3")
+    implementation("cloud.commandframework:cloud-minecraft-extras:1.8.3")
+    implementation("org.spongepowered:configurate-hocon:4.1.2")
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+
+tasks {
+    // Configure reobfJar to run when invoking the build task
+    assemble {
+        dependsOn(reobfJar)
+    }
+
+    compileJava {
+        options.encoding = 'UTF-8' // We want UTF-8 for everything
+
+        // Set the release flag. This configures what version bytecode the compiler will emit, as well as what JDK APIs are usable.
+        // See https://openjdk.java.net/jeps/247 for more information.
+        options.release.set(17)
+    }
+    javadoc {
+        options.encoding = 'UTF-8' // We want UTF-8 for everything
+    }
+    processResources {
+        filteringCharset = 'UTF-8' // We want UTF-8 for everything
+        def props = ["name"       : project.name,
+                     "version"    : project.version,
+                     "description": project.description,
+                     "apiVersion" : "1.21"]
+        inputs.properties(props)
+        filesMatching("*plugin.yml") {
+            expand(props)
+        }
+    }
+}

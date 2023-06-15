@@ -1,0 +1,8 @@
+name: "${name}"
+version: "${version}"
+main: dev.the456gamer.restrictedbackshulkers.RestrictedBackShulkers
+description: "${description}"
+api-version: "${apiVersion}"
+dependencies:
+  - name: "CMI"
+    required: true
