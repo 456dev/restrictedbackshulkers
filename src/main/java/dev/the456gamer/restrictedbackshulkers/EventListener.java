@@ -39,17 +39,13 @@ public class EventListener implements Listener {
   @EventHandler
   public void playerBlockDestroyEvent(BlockDropItemEvent breakBlockEvent) {
     Double customCost = PDCUtil.getCC(breakBlockEvent.getBlockState());
-    breakBlockEvent.getItems().forEach(item -> {
-      setCC(item.getItemStack(), customCost);
-    });
+    breakBlockEvent.getItems().forEach(item -> setCC(item.getItemStack(), customCost));
   }
 
   @EventHandler
   public void blockBlockDestroyEvent(BlockBreakBlockEvent breakBlockEvent) {
     Double customCost = PDCUtil.getCC(breakBlockEvent.getBlock().getState());
-    breakBlockEvent.getDrops().forEach(itemStack -> {
-      setCC(itemStack, customCost);
-    });
+    breakBlockEvent.getDrops().forEach(itemStack -> setCC(itemStack, customCost));
   }
 
 }

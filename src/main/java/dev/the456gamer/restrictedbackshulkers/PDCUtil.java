@@ -24,9 +24,8 @@ public class PDCUtil {
 
   public static Double getCC(BlockState blockState) {
     if (blockState instanceof ShulkerBox shulkerBox) {
-      Double customCost = shulkerBox.getPersistentDataContainer()
+      return shulkerBox.getPersistentDataContainer()
           .get(PDC_KEY, PersistentDataType.DOUBLE);
-      return customCost;
     }
     return null;
   }

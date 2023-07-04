@@ -2,9 +2,7 @@ package dev.the456gamer.restrictedbackshulkers;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.permissions.Permission;
@@ -40,16 +38,24 @@ public final class RestrictedBackShulkers extends JavaPlugin {
     pluginManager.registerEvents(new EventListener(), this);
     getServer().getCommandMap().register("restrictedbackshulkers", rbsCommand);
 
-    pluginManager.addPermission(new Permission("restrictedbackshulkers.command.view", "View current value shulker custom cost with command.", PermissionDefault.FALSE));
-    pluginManager.addPermission(new Permission("restrictedbackshulkers.command.execute", "access to tabcomplete and use command.", PermissionDefault.FALSE));
-    pluginManager.addPermission(new Permission("restrictedbackshulkers.command.set", "set custom cost with command.", PermissionDefault.FALSE));
-    Map<String,Boolean> childMap = new HashMap<String, Boolean>();
+    pluginManager.addPermission(new Permission("restrictedbackshulkers.command.view",
+        "View current value shulker custom cost with command.", PermissionDefault.FALSE));
+    pluginManager.addPermission(new Permission("restrictedbackshulkers.command.execute",
+        "access to tabcomplete and use command.", PermissionDefault.FALSE));
+    pluginManager.addPermission(
+        new Permission("restrictedbackshulkers.command.set", "set custom cost with command.",
+            PermissionDefault.FALSE));
+    Map<String, Boolean> childMap = new HashMap<>();
     childMap.put("restrictedbackshulkers.command.view", true);
-        childMap.put("restrictedbackshulkers.command.execute", true);
-            childMap.put("restrictedbackshulkers.command.set", true);
-    pluginManager.addPermission(new Permission("restrictedbackshulkers.command", "full access to command", PermissionDefault.OP, childMap));
-    pluginManager.addPermission(new Permission("restrictedbackshulkers.bypassnoopen", "allow opening shulkerboxes as backpacks, even if they normally prevent that", PermissionDefault.OP));
-    
+    childMap.put("restrictedbackshulkers.command.execute", true);
+    childMap.put("restrictedbackshulkers.command.set", true);
+    pluginManager.addPermission(
+        new Permission("restrictedbackshulkers.command", "full access to command",
+            PermissionDefault.OP, childMap));
+    pluginManager.addPermission(new Permission("restrictedbackshulkers.bypassnoopen",
+        "allow opening shulkerboxes as backpacks, even if they normally prevent that",
+        PermissionDefault.OP));
+
   }
 
 }
