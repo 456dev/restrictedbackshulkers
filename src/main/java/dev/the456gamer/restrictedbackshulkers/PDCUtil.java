@@ -7,6 +7,7 @@ import org.bukkit.block.ShulkerBox;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class PDCUtil {
@@ -24,8 +25,9 @@ public class PDCUtil {
 
   public static Double getCC(BlockState blockState) {
     if (blockState instanceof ShulkerBox shulkerBox) {
-      return shulkerBox.getPersistentDataContainer()
-          .get(PDC_KEY, PersistentDataType.DOUBLE);
+      PersistentDataContainer dataContainer = shulkerBox.getPersistentDataContainer();
+      return dataContainer.has(PDC_KEY, PersistentDataType.DOUBLE) ? dataContainer
+          .get(PDC_KEY, PersistentDataType.DOUBLE) : null;
     }
     return null;
   }
